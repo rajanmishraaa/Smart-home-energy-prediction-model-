@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Home Energy Predictor</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f5f7;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #222;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            background: #eef7ee;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Smart Home Energy Predictor</h1>
+
+    <p class="subtitle">
+        Predict household energy consumption using machine learning
+    </p>
+
+    <form method="POST">
+
+        <label>Household Size</label>
+        <input type="number"
+               name="household_size"
+               min="1"
+               required>
+
+        <label>Average Temperature (°C)</label>
+        <input type="number"
+               name="temperature"
+               step="0.1"
+               required>
+
+        <label>Air Conditioning</label>
+        <select name="has_ac" required>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+
+        <label>Peak Hours Usage (kWh)</label>
+        <input type="number"
+               name="peak_usage"
+               step="0.01"
+               min="0"
+               required>
+
+        <label>Day of Month</label>
+        <input type="number"
+               name="day"
+               min="1"
+               max="30"
+               required>
+
+        <label>Day of Week</label>
+        <select name="day_of_week" required>
+            <option value="0">Monday</option>
+            <option value="1">Tuesday</option>
+            <option value="2">Wednesday</option>
+            <option value="3">Thursday</option>
+            <option value="4">Friday</option>
+            <option value="5">Saturday</option>
+            <option value="6">Sunday</option>
+        </select>
+
+        <label>Weekend</label>
+        <select name="is_weekend" required>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+
+        <button type="submit">
+            Predict Energy Consumption
+        </button>
+
+    </form>
+
+    {% if prediction is not none %}
+        <div class="result">
+            Predicted Energy Consumption:
+            {{ "%.2f"|format(prediction) }} kWh
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>
